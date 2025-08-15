@@ -1,0 +1,940 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!--
+    Este documento es una versión mejorada del sitio de aprendizaje "Estadística aplicada
+    para secundaria rural". La página ha sido optimizada para accesibilidad, claridad
+    visual y participación interactiva. Se han incorporado cuestionarios auto‑corregidos,
+    secciones de materiales didácticos en Markdown convertidos a HTML y se han pulido
+    estilos para garantizar una experiencia agradable en dispositivos móviles y de
+    escritorio. Todos los contenidos se conservan en español según el público objetivo
+    original.
+  -->
+  <!-- Título y descripción actualizados para reflejar el curso de estadística dentro de la asignatura de educación virtual -->
+  <title>Curso de estadística – Fundamentos de la educación virtual</title>
+  <meta name="description" content="Curso práctico de estadística aplicada dentro de la asignatura Fundamentos de la educación virtual: aprende a recolectar, organizar y analizar datos educativos, interpretar gráficos, calcular medidas y diseñar muestreos para mejorar la toma de decisiones en entornos virtuales." />
+  <meta name="theme-color" content="#0F766E" />
+
+  <!-- Open Graph / Twitter cards -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Curso de estadística – Fundamentos de la educación virtual" />
+  <meta property="og:description" content="Curso de estadística aplicada para apoyar la educación virtual: organiza y analiza datos de tus cursos, interpreta gráficos y aplica nociones de probabilidad y muestreo." />
+  <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=Estadistica+Rural" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Estilos internos: paleta refinada, tipografía legible y diseño responsivo -->
+  <style>
+    :root {
+      /* Colores principales de la identidad visual */
+      --primary: #0F766E;
+      --primary-dark: #094E4A;
+      --secondary: #1F2937;
+      --accent: #F59E0B;
+      --surface: #F8FAFC;
+      --background: #FFFFFF;
+      --text-color: #111827;
+      --muted: #4B5563;
+      --radius-md: 0.75rem;
+      --radius-lg: 1rem;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
+      --shadow-md: 0 10px 20px rgba(0,0,0,.08);
+      --max-width: 1100px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+                   Noto Sans, Helvetica Neue, Arial, sans-serif;
+      line-height: 1.65;
+      color: var(--text-color);
+      background: var(--background);
+    }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; height: auto; border-radius: var(--radius-md); }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(255,255,255,.9);
+      backdrop-filter: saturate(150%) blur(8px);
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+    nav a {
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-md);
+    }
+    nav a.active, nav a[aria-current="true"] {
+      background: var(--primary);
+      color: #fff;
+    }
+    .cta {
+      display: inline-block;
+      padding: 0.6rem 1rem;
+      margin-left: 0.25rem;
+      border-radius: var(--radius-lg);
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
+      transition: background .2s ease;
+    }
+    .cta:hover { background: var(--primary-dark); }
+    .cta.secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      box-shadow: none;
+    }
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+    .skip-link:focus {
+      position: fixed;
+      left: 1rem;
+      top: 1rem;
+      width: auto;
+      height: auto;
+      padding: 0.5rem 0.75rem;
+      background: #fff;
+      border: 2px solid var(--primary);
+      border-radius: 0.5rem;
+      z-index: 10000;
+    }
+    /* Hero */
+    .hero {
+      background: linear-gradient(180deg, var(--surface), #fff);
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 3rem 1rem 2rem;
+    }
+    @media (min-width: 900px) {
+      .hero-inner { grid-template-columns: 1.3fr 0.7fr; }
+    }
+    .kicker {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      background: #E6FFFA;
+      color: #065F46;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border: 1px solid #99F6E4;
+      border-radius: 999px;
+    }
+    h1 {
+      margin: 0.5rem 0;
+      font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+      line-height: 1.2;
+      color: var(--secondary);
+    }
+    .lead {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid #e5e7eb;
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      box-shadow: var(--shadow-md);
+    }
+    main section {
+      scroll-margin-top: 80px;
+    }
+    .section {
+      padding: 2rem 1rem;
+    }
+    .section > h2 {
+      margin-top: 0;
+      font-size: clamp(1.4rem, 2vw, 1.8rem);
+      color: var(--secondary);
+    }
+    .mods-grid {
+      display: grid;
+      gap: 1rem;
+    }
+    @media (min-width: 900px) {
+      .mods-grid { grid-template-columns: 1fr 1fr; }
+    }
+    article.module {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      box-shadow: var(--shadow-md);
+    }
+    article.module h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+      color: var(--secondary);
+    }
+    .muted {
+      color: var(--muted);
+    }
+    /* Cuestionarios interactivos */
+    .quiz-section {
+      background: var(--surface);
+      border-top: 1px solid #e5e7eb;
+    }
+    .quiz-container {
+      margin-top: 1rem;
+    }
+    .quiz-module {
+      margin-bottom: 2rem;
+    }
+    .quiz-module h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
+    .question {
+      margin-bottom: 1rem;
+    }
+    .question h4 {
+      margin: 0 0 .3rem 0;
+      font-size: 1rem;
+    }
+    .options { list-style: none; padding-left: 0; }
+    .options li { margin-bottom: 0.4rem; }
+    .feedback {
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+    .feedback.correct { color: #15803D; }
+    .feedback.incorrect { color: #B91C1C; }
+    .score {
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+    .material-entry {
+      margin-bottom: 1.5rem;
+    }
+    .material-entry h3 {
+      margin-top: 0;
+    }
+    .material-content {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      box-shadow: var(--shadow-md);
+    }
+    footer {
+      border-top: 1px solid #e5e7eb;
+      background: #fbfdff;
+      padding: 1.5rem 1rem;
+    }
+    footer small { color: var(--muted); }
+    .social a {
+      margin-right: 0.6rem;
+    }
+  </style>
+
+  <!-- Librería Marked para convertir Markdown a HTML -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <!-- Enlace rápido para saltar al contenido principal -->
+  <a href="#contenido" class="skip-link">Saltar al contenido principal</a>
+
+  <!-- Cabecera con navegación -->
+  <header role="banner" aria-label="Cabecera del curso">
+    <div class="container nav" style="justify-content: space-between;">
+      <div class="brand" aria-label="Identidad del curso">
+        <!-- Nombre del curso de estadística y referencia a la asignatura -->
+        <strong>Curso de estadística</strong><br>
+        <span class="muted">Universidad de Cartagena — Asignatura Fundamentos de la educación virtual — Docentes: Hugo Córdoba Murillo y Sebastián Salazar Gómez</span>
+      </div>
+      <nav role="navigation" aria-label="Navegación principal">
+        <a href="#introduccion">Introducción</a>
+        <a href="#justificacion">Justificación</a>
+        <a href="#objetivos">Objetivos</a>
+        <a href="#metodologia">Metodología</a>
+        <a href="#modulos">Módulos</a>
+        <a href="#cuestionarios">Cuestionarios</a>
+        <a href="#materiales">Materiales</a>
+        <a href="#referencias">Referencias</a>
+      </nav>
+      <a class="cta" id="signup-button" href="#" role="button" aria-label="Inscribirse al curso">Inscríbete</a>
+    </div>
+  </header>
+
+  <!-- Sección Hero -->
+  <section class="hero" aria-label="Presentación">
+    <div class="container hero-inner">
+      <div>
+        <span class="kicker">Curso en línea</span>
+        <h1>Curso de estadística</h1>
+        <p class="lead">Este curso, diseñado para la asignatura <em>Fundamentos de la educación virtual</em> en la Universidad de Cartagena, te enseña a recolectar, organizar y analizar datos educativos para mejorar la toma de decisiones en entornos virtuales. Combina sesiones sincrónicas breves con actividades autónomas para que estudies a tu ritmo.</p>
+        <div class="hero-actions">
+          <a class="cta" href="#modulos">Explorar módulos</a>
+          <a class="cta secondary" href="mailto:contacto@unicartagena.edu.co?subject=Consulta%20curso%20de%20estad%C3%ADstica">Contacto</a>
+        </div>
+      </div>
+      <aside class="card" aria-label="Datos del curso">
+        <p><strong>Duración:</strong> 5 semanas<br>
+        <strong>Modalidad:</strong> Mixta (sincrónica + asincrónica)<br>
+        <strong>Requisitos:</strong> Calculadora básica y hojas de cálculo<br>
+        <strong>Certificación:</strong> Disponible con ≥70% y proyecto final</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Contenido principal -->
+  <main id="contenido" role="main">
+    <!-- Introducción -->
+    <section id="introduccion" class="section" aria-labelledby="h-intro">
+      <div class="container">
+        <h2 id="h-intro">Introducción</h2>
+        <div class="card">
+          <p>En la Universidad de Cartagena comprender los datos es clave para fortalecer los procesos educativos. Esta asignatura, impartida en el marco de <em>Fundamentos de la educación virtual</em>, ofrece una ruta práctica para que desarrolles competencias estadísticas aplicadas al contexto académico. Aprenderás a recolectar, organizar y analizar datos de tus cursos y proyectos, interpretar gráficos y medidas de síntesis, y comunicar resultados de forma clara y ética. Al finalizar, estarás en capacidad de formular preguntas investigables, construir tablas y gráficos, calcular medidas descriptivas, aplicar nociones básicas de probabilidad y diseñar un muestreo sencillo para responder problemas reales en entornos virtuales.</p>
+        </div>
+      </div>
+    </section>
+    <!-- Justificación -->
+    <section id="justificacion" class="section" aria-labelledby="h-just">
+      <div class="container">
+        <h2 id="h-just">Justificación</h2>
+        <div class="card">
+          <p>Las instituciones de educación superior requieren fortalecer la cultura de datos para mejorar la toma de decisiones y la calidad de sus cursos virtuales. Con frecuencia se gestionan procesos educativos sin registros sistemáticos ni análisis básico de la información. Esta asignatura responde a esa necesidad al integrar contenidos de estadística con problemas auténticos de la práctica docente y del aprendizaje en línea. Es pertinente para la Universidad de Cartagena y su asignatura <em>Fundamentos de la educación virtual</em> porque articula competencias matemáticas con el uso de plataformas digitales, promueve la investigación educativa y fomenta el uso ético de la información. Para los estudiantes de posgrado, ofrece un lenguaje claro, ejemplos cercanos y herramientas gratuitas que pueden usar fuera del aula. El impacto esperado incluye: mejora en la lectura de gráficos, en la argumentación cuantitativa y en la capacidad de diseñar y comunicar estudios de datos aplicados a la educación virtual.</p>
+        </div>
+      </div>
+    </section>
+    <!-- Objetivos -->
+    <section id="objetivos" class="section" aria-labelledby="h-obj">
+      <div class="container">
+        <h2 id="h-obj">Objetivos</h2>
+        <div class="card">
+          <h3 id="h-obj-gen">Objetivo general</h3>
+          <p><strong>Aplicar</strong> métodos básicos de estadística descriptiva, probabilidad y muestreo para <strong>resolver</strong> problemas del contexto educativo virtual y <strong>comunicar</strong> resultados de manera clara y ética.</p>
+          <h3>Objetivos específicos</h3>
+          <ul>
+            <li><strong>Identificar</strong> tipos de variables, poblaciones y muestras en situaciones educativas.</li>
+            <li><strong>Organizar</strong> datos en tablas de frecuencia y <strong>representarlos</strong> en gráficos adecuados.</li>
+            <li><strong>Calcular</strong> y <strong>interpretar</strong> medidas de tendencia central y dispersión.</li>
+            <li><strong>Aplicar</strong> reglas simples de probabilidad y <strong>modelar</strong> fenómenos discretos.</li>
+            <li><strong>Diseñar</strong> un muestreo básico y <strong>estimar</strong> parámetros con intervalos de confianza simples.</li>
+            <li><strong>Valorar</strong> la calidad y ética de los datos (sesgos, privacidad, consentimiento) en la educación virtual.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!-- Metodología -->
+    <section id="metodologia" class="section" aria-labelledby="h-met">
+      <div class="container">
+        <h2 id="h-met">Metodología</h2>
+        <div class="card">
+          <h3>Modalidad y herramientas</h3>
+          <p>El curso se desarrolla en modalidad <strong>mixta</strong>: combina encuentros sincrónicos breves con trabajo asincrónico mediante guías. Se utilizan herramientas como un sistema de gestión del aprendizaje (LMS) para entregas y foros, videoconferencia, repositorio de recursos abiertos y mensajería escolar.</p>
+          <h3>Estrategias didácticas</h3>
+          <ul>
+            <li>Aprendizaje Basado en Problemas (ABP) con casos del entorno.</li>
+            <li>Aprendizaje colaborativo (parejas y equipos de 3–4).</li>
+            <li>Microlearning (píldoras de 10–15&nbsp;min) y evaluación formativa.</li>
+          </ul>
+          <h3>Evaluación y rúbrica (4 niveles)</h3>
+          <div class="table-responsive">
+            <table aria-describedby="rubrica-desc">
+              <caption id="rubrica-desc">Rúbrica global del curso (Insuficiente, Básico, Alto, Superior)</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Criterio</th>
+                  <th scope="col">Insuficiente</th>
+                  <th scope="col">Básico</th>
+                  <th scope="col">Alto</th>
+                  <th scope="col">Superior</th>
+                  <th scope="col">Ponderación</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Dominio conceptual</th>
+                  <td>Define conceptos de forma incompleta.</td>
+                  <td>Reconoce conceptos con ejemplos guiados.</td>
+                  <td>Aplica conceptos a casos locales.</td>
+                  <td>Integra conceptos con precisión y justifica supuestos.</td>
+                  <td>30%</td>
+                </tr>
+                <tr>
+                  <th scope="row">Aplicación</th>
+                  <td>Procesa datos con errores frecuentes.</td>
+                  <td>Realiza cálculos básicos con apoyo.</td>
+                  <td>Resuelve problemas y valida resultados.</td>
+                  <td>Optimiza procesos y verifica supuestos.</td>
+                  <td>35%</td>
+                </tr>
+                <tr>
+                  <th scope="row">Comunicación</th>
+                  <td>Gráficos y conclusiones confusas.</td>
+                  <td>Presenta tablas y conclusiones simples.</td>
+                  <td>Reportes claros con gráficos adecuados.</td>
+                  <td>Informes estructurados con narrativa y visualización efectiva.</td>
+                  <td>20%</td>
+                </tr>
+                <tr>
+                  <th scope="row">Autonomía</th>
+                  <td>Requiere guía constante.</td>
+                  <td>Gestiona tareas con recordatorios.</td>
+                  <td>Planifica y entrega a tiempo.</td>
+                  <td>Anticipa dificultades y propone mejoras.</td>
+                  <td>15%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Módulos -->
+    <section id="modulos" class="section" aria-labelledby="h-mods">
+      <div class="container">
+        <h2 id="h-mods">Módulos</h2>
+        <p class="muted">Cinco módulos con lecturas abiertas, cuestionarios interactivos y ejemplos del entorno rural.</p>
+        <div class="mods-grid">
+          <!-- Módulo 1 -->
+          <article class="module" aria-labelledby="m1-title">
+            <h3 id="m1-title">Módulo 1 · Fundamentos de estadística y ética de datos</h3>
+            <p>Distinguimos población, muestra y variable; escalas de medición y tipos de estudio. Introducimos el ciclo de investigación de datos y principios éticos (privacidad, consentimiento y sesgos). Practicamos con pequeñas encuestas escolares y registros de la huerta.</p>
+            <h4>Resultados de aprendizaje</h4>
+            <ul>
+              <li>Identifica población, muestra y variables (cualitativas y cuantitativas).</li>
+              <li>Reconoce escalas (nominal, ordinal, intervalo, razón) y su impacto analítico.</li>
+              <li>Aplica principios de ética y calidad de datos en recolección local.</li>
+            </ul>
+            <h4>Contenidos</h4>
+            <ul>
+              <li>Población vs. muestra; sesgos comunes.</li>
+              <li>Tipos de variables y escalas.</li>
+              <li>Ética y registro responsable de datos.</li>
+            </ul>
+            <h4>Lecturas / recursos</h4>
+            <ul>
+              <li><a href="https://assets.openstax.org/oscms-prodcms/media/documents/Introduccion_al_la_estadistica_-_WEB.pdf" target="_blank" rel="noopener">OpenStax — Introducción a la estadística (cap. 1–2)</a></li>
+              <li><a href="https://www.aepd.es/guias/guia-centros-educativos.pdf" target="_blank" rel="noopener">AEPD — Guía para centros educativos (protección de datos)</a></li>
+              <li><a href="https://www.oportunidades.onu.org.bo/docs/240977-5399-20241002161418.pdf" target="_blank" rel="noopener">UNICEF — Procedimiento sobre normas éticas (2021)</a></li>
+            </ul>
+            <p><a class="cta secondary" href="#cuestionarios" role="button">Realiza el cuestionario</a></p>
+          </article>
+          <!-- Módulo 2 -->
+          <article class="module" aria-labelledby="m2-title">
+            <h3 id="m2-title">Módulo 2 · Tablas de frecuencia y gráficos</h3>
+            <p>Construimos tablas de frecuencia (absoluta, relativa y acumulada) y seleccionamos el gráfico adecuado (barras, sectores, histogramas). Enfatizamos buenas prácticas de rotulación, escala y lectura crítica para evitar interpretaciones engañosas.</p>
+            <h4>Resultados de aprendizaje</h4>
+            <ul>
+              <li>Construye tablas de frecuencia correctas.</li>
+              <li>Selecciona y diseña gráficos adecuados al tipo de dato.</li>
+              <li>Interpreta y comunica hallazgos con claridad.</li>
+            </ul>
+            <h4>Contenidos</h4>
+            <ul>
+              <li>Tablas de frecuencia (no agrupadas y agrupadas).</li>
+              <li>Gráficos: barras, sectores, histogramas y polígonos.</li>
+              <li>Buenas prácticas de visualización.</li>
+            </ul>
+            <h4>Lecturas / recursos</h4>
+            <ul>
+              <li><a href="https://www.ine.es/explica/docs/pasos_tipos_graficos.pdf" target="_blank" rel="noopener">INE — Tipos de gráficos estadísticos</a></li>
+              <li><a href="https://repository.ucc.edu.co/bitstreams/d52d064c-1eed-4ec3-a051-1962fbd5bff6/download" target="_blank" rel="noopener">UCC — Guía práctica de gráficos</a></li>
+              <li><a href="https://www.inei.gob.pe/media/MenuRecursivo/metodologias/libro.pdf" target="_blank" rel="noopener">INEI — Guía de presentación de gráficos</a></li>
+            </ul>
+            <p><a class="cta secondary" href="#cuestionarios" role="button">Realiza el cuestionario</a></p>
+          </article>
+          <!-- Módulo 3 -->
+          <article class="module" aria-labelledby="m3-title">
+            <h3 id="m3-title">Módulo 3 · Medidas de tendencia central y dispersión</h3>
+            <p>Calculamos media, mediana y moda; rango, varianza y desviación estándar. Aprendemos cuándo usar cada medida y cómo la dispersión afecta la interpretación. Usamos hojas de cálculo y datos de producción, lluvias y peso de frutos.</p>
+            <h4>Resultados de aprendizaje</h4>
+            <ul>
+              <li>Calcula medidas de tendencia y dispersión con y sin tecnología.</li>
+              <li>Compara conjuntos de datos evaluando variabilidad.</li>
+              <li>Elige la medida apropiada frente a valores atípicos.</li>
+            </ul>
+            <h4>Contenidos</h4>
+            <ul>
+              <li>Media, mediana y moda; elección según asimetría.</li>
+              <li>Rango, varianza, desviación estándar.</li>
+              <li>Outliers y decisiones robustas.</li>
+            </ul>
+            <h4>Lecturas / recursos</h4>
+            <ul>
+              <li><a href="https://dmd.unadmexico.mx/contenidos/TRONCO_COMUN/EBA/U2/descargables/EBA_U2_Contenidos.pdf" target="_blank" rel="noopener">UNADM — Medidas de tendencia y dispersión</a></li>
+              <li><a href="https://dmd.unadmexico.mx/contenidos/DCSBA/TC/EBA/unidad_03/descargables/EBA_U3_Contenido.pdf" target="_blank" rel="noopener">UNADM — Muestreo y medidas (refuerzo)</a></li>
+            </ul>
+            <p><a class="cta secondary" href="#cuestionarios" role="button">Realiza el cuestionario</a></p>
+          </article>
+          <!-- Módulo 4 -->
+          <article class="module" aria-labelledby="m4-title">
+            <h3 id="m4-title">Módulo 4 · Probabilidad básica y distribución binomial</h3>
+            <p>Introducimos el lenguaje de la probabilidad, eventos y reglas simples (complemento, adición e independencia). Modelamos conteos de “éxitos/fracaso” en muestras con la distribución binomial y resolvemos problemas contextualizados.</p>
+            <h4>Resultados de aprendizaje</h4>
+            <ul>
+              <li>Calcula probabilidades simples y compuestas.</li>
+              <li>Modela procesos discretos con distribución binomial.</li>
+              <li>Interpreta parámetros y resultados en contexto.</li>
+            </ul>
+            <h4>Contenidos</h4>
+            <ul>
+              <li>Conceptos básicos y reglas de probabilidad.</li>
+              <li>Distribuciones Bernoulli y binomial.</li>
+              <li>Esperanza y varianza de la binomial.</li>
+            </ul>
+            <h4>Lecturas / recursos</h4>
+            <ul>
+              <li><a href="https://www.uv.es/ayala/docencia/probabilidad/prob.pdf" target="_blank" rel="noopener">U. de Valencia — Probabilidad básica</a></li>
+              <li><a href="https://riunet.upv.es/bitstreams/69fe3b29-afc7-49ef-82ea-7b90196aa526/download" target="_blank" rel="noopener">UPV — La distribución binomial</a></li>
+              <li><a href="https://repositorio.unj.edu.pe/bitstream/UNJ/846/1/M_Distribuci%C3%B3n%20binomial.pdf" target="_blank" rel="noopener">UNJ — Manual de distribución binomial (2025)</a></li>
+            </ul>
+            <p><a class="cta secondary" href="#cuestionarios" role="button">Realiza el cuestionario</a></p>
+          </article>
+          <!-- Módulo 5 -->
+          <article class="module" aria-labelledby="m5-title">
+            <h3 id="m5-title">Módulo 5 · Muestreo e inferencia introductoria</h3>
+            <p>Diseñamos muestreos simples y estratificados; estimamos proporciones y medias con intervalos de confianza básicos. Discutimos errores muestrales, tamaño de muestra y comunicación responsable de la incertidumbre.</p>
+            <h4>Resultados de aprendizaje</h4>
+            <ul>
+              <li>Propone diseños muestrales viables y éticos.</li>
+              <li>Calcula intervalos de confianza sencillos.</li>
+              <li>Comunica resultados con márgenes e interpretación.</li>
+            </ul>
+            <h4>Contenidos</h4>
+            <ul>
+              <li>Muestreo aleatorio simple y estratificado.</li>
+              <li>Estimación de proporciones y medias; error muestral.</li>
+              <li>Intervalos de confianza e interpretación.</li>
+            </ul>
+            <h4>Lecturas / recursos</h4>
+            <ul>
+              <li><a href="https://campusvirtual.ull.es/ocw/pluginfile.php/6115/mod_resource/content/1/tema9/ME9-muestreo.pdf" target="_blank" rel="noopener">U. La Laguna — Muestreo y estimación (OCW)</a></li>
+              <li><a href="https://verso.mat.uam.es/~joser.berrendero/cursos/bioest/est-tema4-17.pdf" target="_blank" rel="noopener">UAM — Intervalos de confianza</a></li>
+              <li><a href="https://upcommons.upc.edu/bitstream/handle/2117/186420/08_intervalos_de_confianza-5331.pdf?sequence=1" target="_blank" rel="noopener">UPC — Intervalos de confianza</a></li>
+            </ul>
+            <p><a class="cta secondary" href="#cuestionarios" role="button">Realiza el cuestionario</a></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cuestionarios interactivos -->
+    <section id="cuestionarios" class="section quiz-section" aria-labelledby="h-quiz">
+      <div class="container">
+        <h2 id="h-quiz">Cuestionarios interactivos</h2>
+        <p class="muted">Pon a prueba tus conocimientos con preguntas auto‑corregidas. Responde cada cuestión y recibe retroalimentación inmediata. Tus respuestas no se envían a ningún servidor y se almacenan solo en tu navegador.</p>
+        <div id="quiz-container" class="quiz-container"></div>
+        <p id="quiz-overview" class="score" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- Materiales descargables y guías -->
+    <section id="materiales" class="section" aria-labelledby="h-mat">
+      <div class="container">
+        <h2 id="h-mat">Materiales y guías</h2>
+        <p class="muted">Explora guías y plantillas en formato Markdown que puedes editar y adaptar a tus proyectos. Cada recurso se muestra a continuación y puedes descargar el archivo original para conservarlo o imprimirlo.</p>
+        <div id="material-list"></div>
+      </div>
+    </section>
+
+    <!-- Formulario de inscripción oculto -->
+    <section id="inscripcion" class="section" aria-labelledby="h-insc" style="display:none;">
+      <div class="container">
+        <h2 id="h-insc">Formulario de inscripción</h2>
+        <p class="muted">Completa tus datos para registrar tu interés. La información no se enviará a ningún servidor; solo se mostrará un mensaje de confirmación en tu navegador.</p>
+        <form id="signup-form" style="max-width:600px;">
+          <label for="nombre" style="display:block;margin-top:0.5rem;">Nombre completo:</label>
+          <input type="text" id="nombre" name="nombre" required style="width:100%;padding:0.5rem;border:1px solid #e5e7eb;border-radius:var(--radius-md);">
+          <label for="correo" style="display:block;margin-top:0.5rem;">Correo electrónico:</label>
+          <input type="email" id="correo" name="correo" required style="width:100%;padding:0.5rem;border:1px solid #e5e7eb;border-radius:var(--radius-md);">
+          <label for="telefono" style="display:block;margin-top:0.5rem;">Teléfono de contacto (opcional):</label>
+          <input type="tel" id="telefono" name="telefono" style="width:100%;padding:0.5rem;border:1px solid #e5e7eb;border-radius:var(--radius-md);">
+          <label for="mensaje" style="display:block;margin-top:0.5rem;">Comentarios o expectativas:</label>
+          <textarea id="mensaje" name="mensaje" rows="3" style="width:100%;padding:0.5rem;border:1px solid #e5e7eb;border-radius:var(--radius-md);"></textarea>
+          <button type="submit" class="cta" style="margin-top:1rem;">Enviar</button>
+        </form>
+        <p id="signup-success" class="muted" style="margin-top:1rem;display:none;"></p>
+      </div>
+    </section>
+
+    <!-- Referencias -->
+    <section id="referencias" class="section" aria-labelledby="h-ref">
+      <div class="container">
+        <h2 id="h-ref">Referencias bibliográficas</h2>
+        <div class="card">
+          <ul>
+            <li>Agencia Española de Protección de Datos. (s. f.). <em>Guía para centros educativos</em>. <a href="https://www.aepd.es/guias/guia-centros-educativos.pdf" target="_blank" rel="noopener">https://www.aepd.es/guias/guia-centros-educativos.pdf</a></li>
+            <li>Instituto Nacional de Estadística (España). (s. f.). <em>Tipos de gráficos estadísticos</em>. <a href="https://www.ine.es/explica/docs/pasos_tipos_graficos.pdf" target="_blank" rel="noopener">https://www.ine.es/explica/docs/pasos_tipos_graficos.pdf</a></li>
+            <li>Instituto Nacional de Estadística e Informática (Perú). (2009). <em>Guía para la presentación de gráficos estadísticos</em>. <a href="https://www.inei.gob.pe/media/MenuRecursivo/metodologias/libro.pdf" target="_blank" rel="noopener">https://www.inei.gob.pe/media/MenuRecursivo/metodologias/libro.pdf</a></li>
+            <li>OpenStax. (s. f.). <em>Introducción a la estadística</em>. <a href="https://assets.openstax.org/oscms-prodcms/media/documents/Introduccion_al_la_estadistica_-_WEB.pdf" target="_blank" rel="noopener">https://assets.openstax.org/oscms-prodcms/media/documents/Introduccion_al_la_estadistica_-_WEB.pdf</a></li>
+            <li>UNADM. (2019). <em>Medidas de tendencia central y dispersión</em>. <a href="https://dmd.unadmexico.mx/contenidos/TRONCO_COMUN/EBA/U2/descargables/EBA_U2_Contenidos.pdf" target="_blank" rel="noopener">https://dmd.unadmexico.mx/contenidos/TRONCO_COMUN/EBA/U2/descargables/EBA_U2_Contenidos.pdf</a></li>
+            <li>UNADM. (2018). <em>Muestreo, medidas de tendencia central y dispersión</em>. <a href="https://dmd.unadmexico.mx/contenidos/DCSBA/TC/EBA/unidad_03/descargables/EBA_U3_Contenido.pdf" target="_blank" rel="noopener">https://dmd.unadmexico.mx/contenidos/DCSBA/TC/EBA/unidad_03/descargables/EBA_U3_Contenido.pdf</a></li>
+            <li>Universidad de La Laguna. (2013). <em>Muestreo y estimación (OCW)</em>. <a href="https://campusvirtual.ull.es/ocw/pluginfile.php/6115/mod_resource/content/1/tema9/ME9-muestreo.pdf" target="_blank" rel="noopener">https://campusvirtual.ull.es/ocw/pluginfile.php/6115/mod_resource/content/1/tema9/ME9-muestreo.pdf</a></li>
+            <li>Universidad de Valencia. (2025). <em>Probabilidad básica</em>. <a href="https://www.uv.es/ayala/docencia/probabilidad/prob.pdf" target="_blank" rel="noopener">https://www.uv.es/ayala/docencia/probabilidad/prob.pdf</a></li>
+            <li>Universitat Politècnica de València. (2010). <em>La distribución binomial</em>. <a href="https://riunet.upv.es/bitstreams/69fe3b29-afc7-49ef-82ea-7b90196aa526/download" target="_blank" rel="noopener">https://riunet.upv.es/bitstreams/69fe3b29-afc7-49ef-82ea-7b90196aa526/download</a></li>
+            <li>Universidad Nacional de Jaén. (2025). <em>Manual de distribución binomial</em>. <a href="https://repositorio.unj.edu.pe/bitstream/UNJ/846/1/M_Distribuci%C3%B3n%20binomial.pdf" target="_blank" rel="noopener">https://repositorio.unj.edu.pe/bitstream/UNJ/846/1/M_Distribuci%C3%B3n%20binomial.pdf</a></li>
+            <li>Universitat Politècnica de Catalunya. (2014). <em>Intervalos de confianza</em>. <a href="https://upcommons.upc.edu/bitstream/handle/2117/186420/08_intervalos_de_confianza-5331.pdf?sequence=1" target="_blank" rel="noopener">https://upcommons.upc.edu/bitstream/handle/2117/186420/08_intervalos_de_confianza-5331.pdf?sequence=1</a></li>
+            <li>Universidad Autónoma de Madrid. (2017). <em>Intervalos de confianza</em>. <a href="https://verso.mat.uam.es/~joser.berrendero/cursos/bioest/est-tema4-17.pdf" target="_blank" rel="noopener">https://verso.mat.uam.es/~joser.berrendero/cursos/bioest/est-tema4-17.pdf</a></li>
+            <li>Universidad Cooperativa de Colombia. (2022). <em>Gráficos estadísticos: guía práctica</em>. <a href="https://repository.ucc.edu.co/bitstreams/d52d064c-1eed-4ec3-a051-1962fbd5bff6/download" target="_blank" rel="noopener">https://repository.ucc.edu.co/bitstreams/d52d064c-1eed-4ec3-a051-1962fbd5bff6/download</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Pie de página -->
+  <footer role="contentinfo" aria-label="Pie de página">
+    <div class="container" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;">
+      <small>© <span id="year"></span> Universidad de Cartagena — Docentes: Hugo Córdoba Murillo y Sebastián Salazar Gómez. Todos los derechos reservados.</small>
+      <div class="social" aria-label="Redes sociales">
+        <a href="https://facebook.com/unicartagena" aria-label="Facebook" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://x.com/unicartagena" aria-label="X (Twitter)" target="_blank" rel="noopener">X</a>
+        <a href="mailto:contacto@unicartagena.edu.co" aria-label="Correo de contacto">Correo</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Datos de cuestionarios embebidos en formato JSON -->
+  <script id="quiz-csv" type="text/plain">
+Módulo,Tipo,Enunciado,Opciones,RespuestaCorrecta,Retroalimentación
+Módulo 1,Selección,"En un estudio sobre peso de terneros, la población es…",Los terneros medidos|Todos los terneros del hato|El promedio de pesos|El potrero,B,La población incluye a todos los elementos de interés; la muestra son los medidos.
+Módulo 1,Selección,"La variable 'tipo de suelo' (arcilloso, franco, arenoso) es…",Cuantitativa continua|Cuantitativa discreta|Cualitativa nominal|De razón,C,Las categorías no tienen orden: es cualitativa nominal.
+Módulo 1,Selección,La escala 'número de mazorcas por planta' es…,Nominal|Ordinal|Intervalo|Razón,D,Tiene cero absoluto; los cocientes son significativos.
+Módulo 1,Selección,El consentimiento informado busca principalmente…,Aumentar la muestra|Proteger derechos y privacidad|Reducir varianza|Asegurar normalidad,B,Su objetivo es la protección de las personas y sus datos.
+Módulo 1,Selección,Medir temperatura en °C corresponde a la escala…,Nominal|Ordinal|Intervalo|Razón,C,El cero es arbitrario en °C; es escala de intervalo.
+Módulo 1,Selección,Registrar 'asistencia (sí/no)' produce una variable…,Continua|Discreta|Nominal dicotómica|De razón,C,Es cualitativa con dos categorías.
+Módulo 1,V/F,Un sesgo de selección ocurre si solo medimos los árboles más productivos.,,Verdadero,Seleccionar casos 'cómodos' distorsiona la estimación.
+Módulo 1,V/F,La anonimización permite publicar cualquier dato sin restricciones.,,Falso,Aún con anonimización hay riesgos y normas que considerar.
+Módulo 1,Respuesta corta,Menciona un dato sensible escolar que no debe publicarse.,,Ej.: nombres completos de menores; documentos; datos de salud.,Protección de datos personales de estudiantes.
+Módulo 1,Respuesta corta,Indica una práctica ética al aplicar encuestas en la IE.,,Explicar propósito y solicitar consentimiento informado.,Respeto y transparencia en la recolección.
+Módulo 2,Selección,Un histograma es apropiado para…,Variable cualitativa|Variable cuantitativa continua|Conteos por categoría|Series temporales,B,El histograma representa distribución de variables continuas.
+Módulo 2,Selección,"La frecuencia relativa 0,25 significa…","25 datos son A|25% de los datos son A|Hay 4 'A'|El promedio es 0,25",B,Es la proporción respecto al total.
+Módulo 2,Selección,¿Qué gráfico comunica mejor 'variedad de semilla vs. rendimiento promedio'?,Sectores|Barras|Histograma|Dispersión,B,Comparación entre categorías → barras.
+Módulo 2,Selección,En un gráfico de sectores las categorías deben ser…,Superpuestas|Mutuamente excluyentes|Continuas|Numeradas,B,No deben solaparse.
+Módulo 2,Selección,Para 'número de gallinas por finca' conviene…,Histograma agrupado|Barras|Sectores|Área apilada,B,Conteos por finca → barras.
+Módulo 2,Selección,Un error común que distorsiona la lectura es…,Títulos claros|Escalas proporcionales|Truncar el eje Y sin aviso|Unidades visibles,C,Truncar ejes exagera diferencias.
+Módulo 2,V/F,En un histograma las barras deben estar separadas.,,Falso,Las barras contiguas representan continuidad en los intervalos.
+Módulo 2,V/F,Toda tabla de frecuencia debe indicar el total de casos.,,Verdadero,El total permite interpretar proporciones.
+Módulo 2,Respuesta corta,Menciona dos elementos obligatorios en un gráfico bien rotulado.,,"Título y unidades (y, de ser necesario, fuente/leyenda).",Rotulación clara y trazabilidad de datos.
+Módulo 2,Respuesta corta,Menciona un error frecuente al elegir escala para el eje Y.,,Por ejemplo, truncar el eje sin notificar.,Explica la importancia de la escala completa para evitar distorsiones.
+Módulo 3,Selección,Si hay un valor extremadamente alto, conviene reportar…,Media|Mediana|Moda|Rango,B,La mediana es robusta.
+Módulo 3,V/F,La desviación estándar mide la dispersión respecto a la media.,,Verdadero,Valor numérico que mide la dispersión respecto a la media.
+Módulo 3,Selección,En una distribución simétrica, ¿cuál afirmación es correcta?,Media < Mediana|Media = Mediana|Media > Mediana|Ninguna,B,En simetría, media = mediana.
+Módulo 3,Respuesta corta,Define “rango”.,,Máximo − mínimo.,Es la diferencia entre el valor máximo y el mínimo.
+Módulo 3,Selección,Dos grupos tienen igual media pero distinta desviación. ¿Cuál es más consistente?,Mayor desviación|Menor desviación|Igual|No se puede saber,B,Menor desviación = más consistencia.
+Módulo 3,V/F,La varianza es la raíz cuadrada de la desviación estándar.,,Falso,Es al revés: desviación estándar = raíz cuadrada de la varianza.
+Módulo 3,Selección,¿Qué medida es robusta ante outliers?,Media|Mediana|Desviación estándar|Varianza,B,La mediana no se ve afectada por valores extremos.
+Módulo 3,Respuesta corta,Menciona una situación rural donde la mediana sea mejor que la media.,,Ej.: Ingresos de café con pocos valores muy altos.,La mediana evita distorsión por valores extremos.
+Módulo 3,Respuesta corta,¿Qué sucede con la media si se elimina un valor atípico muy grande?,,Disminuye notablemente.,Explica la sensibilidad de la media a outliers.
+Módulo 4,Selección,En una Bernoulli, “éxito” se define como…,Resultado favorable a la hipótesis|El mayor valor posible|Evento con p=0,5|El valor esperado,A,Se define según el contexto.
+Módulo 4,V/F,En una binomial, n es el número de ensayos y p la probabilidad de éxito.,,Verdadero,Así se define la distribución B(n,p).
+Módulo 4,Selección,Si n=10 y p=0,2, la esperanza es…,2|8|0,2|5,A,E(X)=np=10×0,2=2.
+Módulo 4,Respuesta corta,Menciona un ejemplo binomial en el campo (éxito/fracaso).,,Ej.: grano germina/no germina; fruto sano/dañado.,Cualquier proceso con dos resultados posibles.
+Módulo 4,Selección,La varianza de B(n,p) es…,np|np(1−p)|√np|p(1−p),B,Var(B(n,p)) = np(1−p).
+Módulo 4,V/F,La probabilidad de “al menos un éxito” es 1 − P(0 éxitos).,,Verdadero,Es una regla complementaria.
+Módulo 4,Selección,Si p aumenta y n fijo, la distribución…,Se hace más centrada en 0|Se desplaza a la derecha|No cambia|Se vuelve continua,B,Mayor p → más éxitos esperados.
+Módulo 4,Respuesta corta,¿Cuándo es razonable suponer independencia en ensayos?,,Ensayos idénticos, sin influencia mutua (muestra pequeña vs. población grande).,Independencia requiere que los ensayos no se afecten entre sí.
+Módulo 4,Respuesta corta,Menciona otro experimento con distribución binomial.,,Ej.: conteo de semillas que germinan.,Ilustra un ejemplo concreto de éxito/fracaso.
+Módulo 5,Selección,En muestreo estratificado…,Todos tienen igual probabilidad|La población se divide en grupos homogéneos|Se eligen casos “a conveniencia”|Es un censo,B,Se estratifica y se toma muestra en cada estrato.
+Módulo 5,V/F,Un intervalo de confianza del 95% garantiza que el parámetro está dentro del intervalo con prob. 0,95 para esta muestra concreta.,,Falso,La interpretación es a largo plazo sobre el método, no para una muestra concreta.
+Módulo 5,Selección,A mayor tamaño muestral, el margen de error…,Aumenta|Disminuye|No cambia|Depende solo de p,B,Al aumentar n, el error estándar disminuye.
+Módulo 5,Respuesta corta,Escribe una ventaja del muestreo estratificado en la Universidad de Cartagena.,,Garantiza representatividad por programa/sede/sexo, etc.,Permite estimar parámetros en subgrupos clave.
+Módulo 5,Selección,Para estimar proporción con IC, se usa…,Media muestral|p̂|Mediana|Moda,B,El estimador natural de la proporción es la proporción muestral p̂.
+Módulo 5,V/F,Un 95% de confianza implica que el 95% de los datos caen en el intervalo.,,Falso,La confianza se refiere al parámetro, no a los datos.
+Módulo 5,Selección,¿Qué información debe acompañar todo IC?,Tamaño de muestra|Nivel de confianza|Método usado|Todas,D,Debe incluir tamaño de muestra, nivel y método para interpretar.
+Módulo 5,Respuesta corta,Menciona una decisión escolar que se beneficie de un IC.,,Ej.: Asistencia o aprobación por grado.,El IC comunica la incertidumbre de una estimación.
+Módulo 5,Respuesta corta,Indica cómo afecta la variabilidad de la muestra al margen de error.,,Mayor variabilidad aumenta el margen.,Relaciona variabilidad con precisión del intervalo.
+  </script>
+  <script id="quiz-data" type="application/json">[]</script>
+  <!-- Datos de materiales (Markdown) embebidos en JSON -->
+  <script id="material-data" type="application/json">
+  {
+    "checklist_modulo1.md": "## Checklist de estudio semanal (4 semanas por módulo)\n**Uso**: marca cada paso al avanzar en el módulo. Imprime o convierte a PDF.\n| Semana | Tarea | Hecho |\n|---|---|---|\n| 1 | Leer guía y registrar dudas | [ ] |\n| 1 | Ver recursos (videos/lecturas) | [ ] |\n| 2 | Resolver ejercicios guiados | [ ] |\n| 2 | Participar en foro | [ ] |\n| 3 | Practicar con datos locales | [ ] |\n| 3 | Entregar actividad formativa | [ ] |\n| 4 | Realizar cuestionario y autoevaluación | [ ] |\n| 4 | Preparar miniinforme | [ ] |",
+    "plan_actividades.md": "## Plan de actividades (formato editable para estudiantes)\n**Uso**: completa fechas y productos. Convierte a PDF si necesitas imprimir.\n| Semana | Actividad | Producto/Entrega | Fecha | Responsable | Observaciones |\n|---|---|---|---|---|---|\n| 1 | Lecturas y notas | Síntesis 1 página |  |  |  |\n| 2 | Práctica guiada | Hoja de cálculo |  |  |  |\n| 3 | Proyecto aplicado | Borrador de análisis |  |  |  |\n| 4 | Presentación final | Informe y gráfico |  |  |  |",
+    "plantilla_foro.md": "## Plantilla de foro (consigna, reglas, rúbrica breve)\n**Consigna**: comparte un gráfico propio (barras/histograma) usando datos de tu contexto y comenta dos aportes de compañeros.\n**Reglas**: respeto, citas de fuente, no publicar datos sensibles.\n**Rúbrica (0-3)**:\n- 0: sin evidencias / fuera de tema\n- 1: gráfico incompleto / sin fuente\n- 2: gráfico correcto / comentario básico\n- 3: gráfico claro / comentario crítico con sugerencias",
+    "rubrica_analitica_proyectos.md": "## Rúbrica analítica 4 niveles para proyectos\n**Criterios**: dominio conceptual, aplicación, comunicación, autonomía.\n| Criterio | Insuficiente (1) | Básico (2) | Alto (3) | Superior (4) |\n|---|---|---|---|---|\n| Dominio conceptual | Definiciones imprecisas | Conceptos reconocidos | Conceptos aplicados | Integra y justifica supuestos |\n| Aplicación | Cálculos con errores | Cálculos básicos correctos | Resuelve y valida | Optimiza y verifica supuestos |\n| Comunicación | Gráficos confusos | Tablas y conclusiones simples | Reporte claro con gráficos | Informe estructurado y convincente |\n| Autonomía | Requiere guía constante | Gestiona tareas con apoyo | Planifica y entrega a tiempo | Anticipa riesgos y propone mejoras |"
+  }
+  </script>
+
+  <!-- Lógica para cuestionarios interactivos y materiales -->
+  <script>
+    // Utilidades de accesibilidad
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Desplazamiento y activación de enlaces de navegación (scrollspy)
+    (function() {
+      const navLinks = Array.from(document.querySelectorAll('nav a'));
+      const sectionIds = navLinks.map(a => a.getAttribute('href').substring(1));
+      const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          const id = entry.target.id;
+          const link = navLinks.find(a => a.getAttribute('href') === '#' + id);
+          if (entry.isIntersecting && link) {
+            navLinks.forEach(l => { l.classList.remove('active'); l.removeAttribute('aria-current'); });
+            link.classList.add('active');
+            link.setAttribute('aria-current','true');
+          }
+        });
+      }, { rootMargin: '-50% 0px -45% 0px', threshold: 0 });
+      sections.forEach(sec => observer.observe(sec));
+    })();
+
+    // Parse data embedded in script tags
+    // Leer datos de cuestionarios. Si existe un CSV incrustado lo analizamos, de lo contrario usamos JSON.
+    let quizData = [];
+    const csvEl = document.getElementById('quiz-csv');
+    if (csvEl) {
+      const csvText = csvEl.textContent.trim();
+      // Función básica de análisis de CSV que respeta comillas dobles
+      function parseCSV(text) {
+        const lines = text.split(/\r?\n/);
+        const header = lines[0].split(',');
+        const data = [];
+        for (let i = 1; i < lines.length; i++) {
+          const line = lines[i];
+          let field = '';
+          const fields = [];
+          let inQuotes = false;
+          for (let j = 0; j < line.length; j++) {
+            const char = line[j];
+            if (char === '"') {
+              inQuotes = !inQuotes;
+            } else if (char === ',' && !inQuotes) {
+              fields.push(field);
+              field = '';
+            } else {
+              field += char;
+            }
+          }
+          fields.push(field);
+          // Construir objeto
+          const row = {};
+          header.forEach((h, idx) => { row[h] = fields[idx] || ''; });
+          data.push(row);
+        }
+        return data;
+      }
+      const raw = parseCSV(csvText);
+      quizData = raw.map(row => {
+        const type = row['Tipo'];
+        const module = row['Módulo'];
+        const question = row['Enunciado'];
+        const feedback = row['Retroalimentación'];
+        let options = [];
+        let correct = row['RespuestaCorrecta'];
+        if (type === 'Selección') {
+          options = row['Opciones'] ? row['Opciones'].split('|') : [];
+          // Si la respuesta correcta está vacía, deja correct como vacío (para preguntas abiertas que se registran como selección).
+        } else if (type === 'V/F') {
+          options = ['Verdadero','Falso'];
+          // Convertir 'Verdadero' o 'Falso' a letra correspondiente
+          const c = row['RespuestaCorrecta'].trim().toLowerCase();
+          correct = (c.startsWith('v')) ? 'A' : 'B';
+        } else {
+          // Respuesta corta: no hay opciones
+          correct = row['RespuestaCorrecta'];
+        }
+        return { module, type, question, options, correct, feedback };
+      });
+    } else {
+      quizData = JSON.parse(document.getElementById('quiz-data').textContent);
+    }
+    const materialData = JSON.parse(document.getElementById('material-data').textContent);
+
+    // Agrupar preguntas por módulo
+    const modules = {};
+    quizData.forEach(q => {
+      const mod = q.module;
+      if (!modules[mod]) modules[mod] = [];
+      modules[mod].push(q);
+    });
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizOverview = document.getElementById('quiz-overview');
+
+    // Renderizar los cuestionarios
+    function renderQuizzes() {
+      quizContainer.innerHTML = '';
+      let totalQuestions = 0;
+      let totalCorrect = 0;
+      Object.keys(modules).forEach((moduleName, moduleIndex) => {
+        const modDiv = document.createElement('div');
+        modDiv.className = 'quiz-module';
+        const heading = document.createElement('h3');
+        heading.textContent = moduleName;
+        modDiv.appendChild(heading);
+        modules[moduleName].forEach((q, idx) => {
+          const qDiv = document.createElement('div');
+          qDiv.className = 'question';
+          const qId = `m${moduleIndex}-q${idx}`;
+          const qTitle = document.createElement('h4');
+          qTitle.textContent = `${idx + 1}. ${q.question}`;
+          qDiv.appendChild(qTitle);
+          if (q.type === 'Selección' || q.type === 'V/F') {
+            const list = document.createElement('ul');
+            list.className = 'options';
+            const optionLetters = ['A','B','C','D','E','F'];
+            q.options.forEach((opt, i) => {
+              const li = document.createElement('li');
+              const label = document.createElement('label');
+              label.style.cursor = 'pointer';
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = qId;
+              input.value = optionLetters[i];
+              input.setAttribute('aria-label', opt);
+              input.addEventListener('change', (e) => {
+                const selected = e.target.value;
+                const feedback = qDiv.querySelector('.feedback');
+                if (selected === q.correct) {
+                  feedback.textContent = '¡Correcto! ' + q.feedback;
+                  feedback.className = 'feedback correct';
+                  totalCorrect++;
+                } else {
+                  feedback.textContent = 'Incorrecto. ' + q.feedback;
+                  feedback.className = 'feedback incorrect';
+                }
+                // Actualizar resumen
+                updateOverview();
+              });
+              label.appendChild(input);
+              const span = document.createElement('span');
+              span.textContent = ` ${optionLetters[i]}) ${opt}`;
+              label.appendChild(span);
+              li.appendChild(label);
+              list.appendChild(li);
+            });
+            qDiv.appendChild(list);
+            const fb = document.createElement('div');
+            fb.className = 'feedback';
+            qDiv.appendChild(fb);
+          } else {
+            // Respuesta corta: input y botón para mostrar respuesta
+            const textarea = document.createElement('textarea');
+            textarea.rows = 2;
+            textarea.cols = 50;
+            textarea.placeholder = 'Escribe tu respuesta';
+            textarea.style.width = '100%';
+            textarea.style.borderRadius = 'var(--radius-md)';
+            textarea.style.border = '1px solid #e5e7eb';
+            textarea.style.padding = '0.5rem';
+            qDiv.appendChild(textarea);
+            const showBtn = document.createElement('button');
+            showBtn.textContent = 'Mostrar respuesta';
+            showBtn.className = 'cta secondary';
+            showBtn.style.marginTop = '0.5rem';
+            showBtn.addEventListener('click', () => {
+              const fb = qDiv.querySelector('.feedback');
+              fb.textContent = 'Respuesta sugerida: ' + q.correct;
+              fb.className = 'feedback correct';
+            });
+            qDiv.appendChild(showBtn);
+            const fb = document.createElement('div');
+            fb.className = 'feedback';
+            qDiv.appendChild(fb);
+          }
+          modDiv.appendChild(qDiv);
+          totalQuestions++;
+        });
+        quizContainer.appendChild(modDiv);
+      });
+      updateOverview();
+    }
+    function updateOverview() {
+      // Contar el número de respuestas correctas detectadas
+      const answered = quizContainer.querySelectorAll('input[type=radio]:checked');
+      let correctCount = 0;
+      answered.forEach(inp => {
+        const parent = inp.closest('.question');
+        const fb = parent.querySelector('.feedback');
+        if (fb.classList.contains('correct')) correctCount++;
+      });
+      quizOverview.textContent = `Has respondido correctamente ${correctCount} de ${answered.length} preguntas cerradas.`;
+    }
+    renderQuizzes();
+
+    // Renderizar materiales (Markdown) usando Marked
+    const materialList = document.getElementById('material-list');
+    Object.entries(materialData).forEach(([filename, content]) => {
+      const entry = document.createElement('div');
+      entry.className = 'material-entry';
+      const title = document.createElement('h3');
+      // Convert filename to título legible
+      const niceName = filename.replace(/_/g,' ').replace(/\.md$/i,'');
+      title.textContent = niceName.charAt(0).toUpperCase() + niceName.slice(1);
+      entry.appendChild(title);
+      const contentDiv = document.createElement('div');
+      contentDiv.className = 'material-content';
+      // Convertir Markdown a HTML
+      contentDiv.innerHTML = marked.parse(content);
+      entry.appendChild(contentDiv);
+      // Botón de descarga: enlaza directamente al archivo Markdown ubicado junto al index
+      const downloadLink = document.createElement('a');
+      downloadLink.href = filename;
+      downloadLink.className = 'cta secondary';
+      // Atributo download sugiere al navegador guardar el archivo en disco
+      downloadLink.setAttribute('download', filename);
+      downloadLink.textContent = 'Descargar';
+      downloadLink.style.marginTop = '0.5rem';
+      entry.appendChild(downloadLink);
+      materialList.appendChild(entry);
+    });
+
+    // Lógica para formulario de inscripción
+    const signupBtn = document.getElementById('signup-button');
+    if (signupBtn) {
+      signupBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const insc = document.getElementById('inscripcion');
+        if (insc) {
+          // Alternar visibilidad
+          const isHidden = insc.style.display === 'none' || insc.style.display === '';
+          insc.style.display = isHidden ? 'block' : 'none';
+          if (isHidden) {
+            insc.scrollIntoView({behavior: 'smooth'});
+          }
+        }
+      });
+    }
+    const signupFormEl = document.getElementById('signup-form');
+    if (signupFormEl) {
+      signupFormEl.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const successMsg = document.getElementById('signup-success');
+        if (successMsg) {
+          successMsg.textContent = '¡Gracias por inscribirte! Nos comunicaremos contigo pronto.';
+          successMsg.style.display = 'block';
+        }
+        signupFormEl.reset();
+      });
+    }
+  </script>
+</body>
+</html>
