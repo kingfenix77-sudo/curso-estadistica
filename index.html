@@ -50,7 +50,35 @@
                    Noto Sans, Helvetica Neue, Arial, sans-serif;
       line-height: 1.65;
       color: var(--text-color);
-      background: var(--background);
+      /* Utiliza un tono pastel claro como fondo general para dar más vida al sitio
+         conservando un aspecto sutil y agradable. */
+      background: #F5F7FA;
+    }
+
+    /* Alineación de textos: justifica todos los párrafos para una lectura más cómoda */
+    p {
+      text-align: justify;
+      margin-bottom: 1rem;
+    }
+
+    /* Mejora la presentación de tablas: define bordes visibles para filas y columnas,
+       alterna colores de fondo y resalta encabezados con el color principal. */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+    }
+    table th, table td {
+      border: 1px solid #d1d5db;
+      padding: 0.5rem;
+      text-align: left;
+    }
+    table thead th {
+      background: var(--primary);
+      color: #ffffff;
+    }
+    table tbody tr:nth-child(even) {
+      background: #F0F7F9;
     }
     a { color: var(--primary); text-decoration: none; }
     a:hover { text-decoration: underline; }
@@ -124,7 +152,10 @@
     }
     /* Hero */
     .hero {
-      background: linear-gradient(180deg, var(--surface), #fff);
+      /* Fondo decorativo utilizando una imagen abstracta con degradado para mejorar el aspecto visual */
+      background-image: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('assets/hero_bg.png');
+      background-size: cover;
+      background-position: center;
       border-bottom: 1px solid #e5e7eb;
     }
     .hero-inner {
@@ -259,6 +290,71 @@
     .social a {
       margin-right: 0.6rem;
     }
+
+    /* Nuevas reglas de estilo para mejorar la presentación */
+    h2 {
+      color: var(--primary-dark);
+    }
+    h3 {
+      color: var(--accent);
+    }
+    h4 {
+      color: var(--primary);
+    }
+    /* Tablas estilizadas: bordes sutiles y alternancia de filas */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #e5e7eb;
+      padding: 0.5rem;
+    }
+    th {
+      background: var(--primary);
+      color: #fff;
+    }
+    tbody tr:nth-child(even) td {
+      background: #f0fdf4;
+    }
+    /* Barra de progreso para cuestionarios */
+    .progress-wrapper {
+      width: 100%;
+      height: 0.5rem;
+      background: #e5e7eb;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width .3s ease;
+    }
+    .question-container .feedback {
+      margin-top: 0.5rem;
+    }
+    /* Estilos para la sección de foro */
+    #foro-form input,
+    #foro-form textarea {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #e5e7eb;
+      border-radius: var(--radius-md);
+      margin-bottom: 0.5rem;
+    }
+    .foro-comment {
+      border-bottom: 1px solid #e5e7eb;
+      padding: 0.5rem 0;
+    }
+    .foro-comment strong {
+      display: block;
+      color: var(--primary-dark);
+    }
+    .foro-comment p {
+      margin: 0.2rem 0 0.5rem 0;
+    }
   </style>
 
   <!-- Librería Marked para convertir Markdown a HTML -->
@@ -284,9 +380,17 @@
         <a href="#modulos">Módulos</a>
         <a href="#cuestionarios">Cuestionarios</a>
         <a href="#materiales">Materiales</a>
+        <a href="#foro-actividad">Foro</a>
+        <!-- Nuevas secciones para notas y mensajería -->
+        <a href="#calificaciones">Calificaciones</a>
+        <a href="#mensajeria">Mensajería</a>
         <a href="#referencias">Referencias</a>
       </nav>
-      <a class="cta" id="signup-button" href="#" role="button" aria-label="Inscribirse al curso">Inscríbete</a>
+      <!-- Mensaje de bienvenida dinámico (oculto hasta que el usuario inicie sesión) -->
+      <span id="welcome-user" class="muted" style="margin-right:0.5rem;display:none;"></span>
+      <!-- Botones de autenticación: iniciar sesión y registrarse -->
+      <a class="cta" id="login-button" href="#" role="button" aria-label="Iniciar sesión">Iniciar sesión</a>
+      <a class="cta secondary" id="register-button" href="#" role="button" aria-label="Registrarse">Registrarse</a>
     </div>
   </header>
 
@@ -317,6 +421,8 @@
     <section id="introduccion" class="section" aria-labelledby="h-intro">
       <div class="container">
         <h2 id="h-intro">Introducción</h2>
+        <!-- Imagen decorativa relacionada con la estadística -->
+        <img src="assets/descarga.jpg" alt="Elementos estadísticos coloridos" style="max-width:300px; display:block; margin:0 auto 1rem; border-radius:var(--radius-md); box-shadow:var(--shadow-sm);">
         <div class="card">
           <p>En la Universidad de Cartagena comprender los datos es clave para fortalecer los procesos educativos. Esta asignatura, impartida en el marco de <em>Fundamentos de la educación virtual</em>, ofrece una ruta práctica para que desarrolles competencias estadísticas aplicadas al contexto académico. Aprenderás a recolectar, organizar y analizar datos de tus cursos y proyectos, interpretar gráficos y medidas de síntesis, y comunicar resultados de forma clara y ética. Al finalizar, estarás en capacidad de formular preguntas investigables, construir tablas y gráficos, calcular medidas descriptivas, aplicar nociones básicas de probabilidad y diseñar un muestreo sencillo para responder problemas reales en entornos virtuales.</p>
         </div>
@@ -326,6 +432,8 @@
     <section id="justificacion" class="section" aria-labelledby="h-just">
       <div class="container">
         <h2 id="h-just">Justificación</h2>
+        <!-- Imagen decorativa que muestra crecimiento en datos -->
+        <img src="assets/image11.jpg" alt="Crecimiento de barras coloridas" style="max-width:300px; display:block; margin:0 auto 1rem; border-radius:var(--radius-md); box-shadow:var(--shadow-sm);">
         <div class="card">
           <p>Las instituciones de educación superior requieren fortalecer la cultura de datos para mejorar la toma de decisiones y la calidad de sus cursos virtuales. Con frecuencia se gestionan procesos educativos sin registros sistemáticos ni análisis básico de la información. Esta asignatura responde a esa necesidad al integrar contenidos de estadística con problemas auténticos de la práctica docente y del aprendizaje en línea. Es pertinente para la Universidad de Cartagena y su asignatura <em>Fundamentos de la educación virtual</em> porque articula competencias matemáticas con el uso de plataformas digitales, promueve la investigación educativa y fomenta el uso ético de la información. Para los estudiantes de posgrado, ofrece un lenguaje claro, ejemplos cercanos y herramientas gratuitas que pueden usar fuera del aula. El impacto esperado incluye: mejora en la lectura de gráficos, en la argumentación cuantitativa y en la capacidad de diseñar y comunicar estudios de datos aplicados a la educación virtual.</p>
         </div>
@@ -335,6 +443,8 @@
     <section id="objetivos" class="section" aria-labelledby="h-obj">
       <div class="container">
         <h2 id="h-obj">Objetivos</h2>
+        <!-- Imagen decorativa con una presentación de datos -->
+        <img src="assets/jjj.jpg" alt="Presentación con gráfico ascendente" style="max-width:300px; display:block; margin:0 auto 1rem; border-radius:var(--radius-md); box-shadow:var(--shadow-sm);">
         <div class="card">
           <h3 id="h-obj-gen">Objetivo general</h3>
           <p><strong>Aplicar</strong> métodos básicos de estadística descriptiva, probabilidad y muestreo para <strong>resolver</strong> problemas del contexto educativo virtual y <strong>comunicar</strong> resultados de manera clara y ética.</p>
@@ -354,6 +464,8 @@
     <section id="metodologia" class="section" aria-labelledby="h-met">
       <div class="container">
         <h2 id="h-met">Metodología</h2>
+        <!-- Imagen decorativa representando análisis colaborativo de datos -->
+        <img src="assets/yyyyy.jpg" alt="Ilustración de personas analizando gráficos" style="max-width:300px; display:block; margin:0 auto 1rem; border-radius:var(--radius-md); box-shadow:var(--shadow-sm);">
         <div class="card">
           <h3>Modalidad y herramientas</h3>
           <p>El curso se desarrolla en modalidad <strong>mixta</strong>: combina encuentros sincrónicos breves con trabajo asincrónico mediante guías. Se utilizan herramientas como un sistema de gestión del aprendizaje (LMS) para entregas y foros, videoconferencia, repositorio de recursos abiertos y mensajería escolar.</p>
@@ -420,6 +532,8 @@
     <section id="modulos" class="section" aria-labelledby="h-mods">
       <div class="container">
         <h2 id="h-mods">Módulos</h2>
+        <!-- Imagen decorativa adicional para la sección de módulos -->
+        <img src="assets/tttt.png" alt="Gráficas coloridas en dispositivo" style="max-width:300px; display:block; margin:0 auto 1rem; border-radius:var(--radius-md); box-shadow:var(--shadow-sm);">
         <p class="muted">Cinco módulos con lecturas abiertas, cuestionarios interactivos y ejemplos del entorno rural.</p>
         <div class="mods-grid">
           <!-- Módulo 1 -->
@@ -564,23 +678,95 @@
       </div>
     </section>
 
-    <!-- Formulario de inscripción oculto -->
-    <section id="inscripcion" class="section" aria-labelledby="h-insc" style="display:none;">
+    <!-- Sección de actividad del foro -->
+    <section id="foro-actividad" class="section" aria-labelledby="h-foro-act">
       <div class="container">
-        <h2 id="h-insc">Formulario de inscripción</h2>
-        <p class="muted">Completa tus datos para registrar tu interés. La información no se enviará a ningún servidor; solo se mostrará un mensaje de confirmación en tu navegador.</p>
-        <form id="signup-form" style="max-width:600px;">
-          <label for="nombre" style="display:block;margin-top:0.5rem;">Nombre completo:</label>
-          <input type="text" id="nombre" name="nombre" required style="width:100%;padding:0.5rem;border:1px solid #e5e7eb;border-radius:var(--radius-md);">
-          <label for="correo" style="display:block;margin-top:0.5rem;">Correo electrónico:</label>
-          <input type="email" id="correo" name="correo" required style="width:100%;padding:0.5rem;border:1px solid #e5e7eb;border-radius:var(--radius-md);">
-          <label for="telefono" style="display:block;margin-top:0.5rem;">Teléfono de contacto (opcional):</label>
-          <input type="tel" id="telefono" name="telefono" style="width:100%;padding:0.5rem;border:1px solid #e5e7eb;border-radius:var(--radius-md);">
-          <label for="mensaje" style="display:block;margin-top:0.5rem;">Comentarios o expectativas:</label>
-          <textarea id="mensaje" name="mensaje" rows="3" style="width:100%;padding:0.5rem;border:1px solid #e5e7eb;border-radius:var(--radius-md);"></textarea>
-          <button type="submit" class="cta" style="margin-top:1rem;">Enviar</button>
+        <h2 id="h-foro-act">Actividad de foro</h2>
+        <div class="card">
+          <p>Comparte un gráfico propio (por ejemplo, de barras o histograma) utilizando datos de tu contexto y comenta al menos dos aportes de tus compañeros. Recuerda respetar las normas de convivencia: utiliza un lenguaje respetuoso, cita las fuentes de tus datos y evita publicar información sensible o identificable.</p>
+          <p>Cuando estés listo para participar, visita la sección <a href="#foro" class="cta secondary">Foro</a> para publicar tu aporte y conversar con el resto de participantes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección del foro interactivo -->
+    <section id="foro" class="section" aria-labelledby="h-foro">
+      <div class="container">
+        <h2 id="h-foro">Foro de discusión</h2>
+        <div class="card">
+          <form id="foro-form" style="max-width:700px;">
+            <label for="foro-nombre" style="display:block;margin-top:0.5rem;">Nombre:</label>
+            <input type="text" id="foro-nombre" required>
+            <label for="foro-comentario" style="display:block;margin-top:0.5rem;">Comentario:</label>
+            <textarea id="foro-comentario" rows="3" required></textarea>
+            <button type="submit" class="cta" style="margin-top:0.5rem;">Publicar</button>
+          </form>
+          <div id="foro-list" style="margin-top:1rem;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de registro de nueva cuenta (oculta por defecto) -->
+    <section id="registro" class="section" aria-labelledby="h-reg" style="display:none;">
+      <div class="container">
+        <h2 id="h-reg">Registro de cuenta</h2>
+        <p class="muted">Crea tu cuenta con los datos básicos. La información se almacena únicamente en tu navegador.</p>
+        <form id="register-form" style="max-width:600px;">
+          <label for="reg-nombre" style="display:block;margin-top:0.5rem;">Nombre completo:</label>
+          <input type="text" id="reg-nombre" name="reg-nombre" required style="width:100%;padding:0.5rem;border:1px solid #e5e7eb;border-radius:var(--radius-md);">
+          <label for="reg-email" style="display:block;margin-top:0.5rem;">Correo electrónico:</label>
+          <input type="email" id="reg-email" name="reg-email" required style="width:100%;padding:0.5rem;border:1px solid #e5e7eb;border-radius:var(--radius-md);">
+          <label for="reg-pass" style="display:block;margin-top:0.5rem;">Contraseña:</label>
+          <input type="password" id="reg-pass" name="reg-pass" required style="width:100%;padding:0.5rem;border:1px solid #e5e7eb;border-radius:var(--radius-md);">
+          <button type="submit" class="cta" style="margin-top:1rem;">Registrar</button>
         </form>
-        <p id="signup-success" class="muted" style="margin-top:1rem;display:none;"></p>
+        <p id="register-success" class="muted" style="margin-top:1rem;display:none;"></p>
+      </div>
+    </section>
+
+    <!-- Sección de inicio de sesión (oculta por defecto) -->
+    <section id="login" class="section" aria-labelledby="h-login" style="display:none;">
+      <div class="container">
+        <h2 id="h-login">Iniciar sesión</h2>
+        <p class="muted">Introduce tus credenciales para acceder. Tus datos no se envían a ningún servidor.</p>
+        <form id="login-form" style="max-width:600px;">
+          <label for="login-email" style="display:block;margin-top:0.5rem;">Correo electrónico:</label>
+          <input type="email" id="login-email" name="login-email" required style="width:100%;padding:0.5rem;border:1px solid #e5e7eb;border-radius:var(--radius-md);">
+          <label for="login-pass" style="display:block;margin-top:0.5rem;">Contraseña:</label>
+          <input type="password" id="login-pass" name="login-pass" required style="width:100%;padding:0.5rem;border:1px solid #e5e7eb;border-radius:var(--radius-md);">
+          <button type="submit" class="cta" style="margin-top:1rem;">Entrar</button>
+        </form>
+        <p id="login-success" class="muted" style="margin-top:1rem;display:none;"></p>
+      </div>
+    </section>
+
+    <!-- Sección de calificaciones -->
+    <section id="calificaciones" class="section" aria-labelledby="h-calificaciones">
+      <div class="container">
+        <h2 id="h-calificaciones">Calificaciones</h2>
+        <!-- Imagen decorativa para la sección de calificaciones -->
+        <img src="assets/decor1.png" alt="Decoración de calificaciones" style="display:block;margin:0 auto 1rem;max-width:200px;border-radius:var(--radius-md);box-shadow:var(--shadow-sm);">
+        <p class="muted">Consulta y registra las notas de tus actividades evaluables. Tus registros se guardan localmente y no se envían a ningún servidor.</p>
+        <div class="card" id="grades-card">
+          <div id="grades-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de mensajería -->
+    <section id="mensajeria" class="section" aria-labelledby="h-mens">
+      <div class="container">
+        <h2 id="h-mens">Mensajería</h2>
+        <!-- Imagen decorativa para la sección de mensajería -->
+        <img src="assets/decor2.png" alt="Decoración de mensajería" style="display:block;margin:0 auto 1rem;max-width:200px;border-radius:var(--radius-md);box-shadow:var(--shadow-sm);">
+        <p class="muted">Comunícate con el tutor y recibe mensajes importantes. La conversación se almacena en tu navegador.</p>
+        <div class="card" style="max-width:700px;">
+          <div id="chat-list" style="min-height:150px;padding-bottom:0.5rem;max-height:300px;overflow-y:auto;border-bottom:1px solid #e5e7eb;"></div>
+          <form id="chat-form" style="margin-top:0.5rem;display:flex;gap:0.5rem;">
+            <input type="text" id="chat-input" placeholder="Escribe tu mensaje" required style="flex:1;padding:0.5rem;border:1px solid #e5e7eb;border-radius:var(--radius-md);">
+            <button type="submit" class="cta">Enviar</button>
+          </form>
+        </div>
       </div>
     </section>
 
@@ -678,7 +864,6 @@ Módulo 5,Respuesta corta,Indica cómo afecta la variabilidad de la muestra al m
   {
     "checklist_modulo1.md": "## Checklist de estudio semanal (4 semanas por módulo)\n**Uso**: marca cada paso al avanzar en el módulo. Imprime o convierte a PDF.\n| Semana | Tarea | Hecho |\n|---|---|---|\n| 1 | Leer guía y registrar dudas | [ ] |\n| 1 | Ver recursos (videos/lecturas) | [ ] |\n| 2 | Resolver ejercicios guiados | [ ] |\n| 2 | Participar en foro | [ ] |\n| 3 | Practicar con datos locales | [ ] |\n| 3 | Entregar actividad formativa | [ ] |\n| 4 | Realizar cuestionario y autoevaluación | [ ] |\n| 4 | Preparar miniinforme | [ ] |",
     "plan_actividades.md": "## Plan de actividades (formato editable para estudiantes)\n**Uso**: completa fechas y productos. Convierte a PDF si necesitas imprimir.\n| Semana | Actividad | Producto/Entrega | Fecha | Responsable | Observaciones |\n|---|---|---|---|---|---|\n| 1 | Lecturas y notas | Síntesis 1 página |  |  |  |\n| 2 | Práctica guiada | Hoja de cálculo |  |  |  |\n| 3 | Proyecto aplicado | Borrador de análisis |  |  |  |\n| 4 | Presentación final | Informe y gráfico |  |  |  |",
-    "plantilla_foro.md": "## Plantilla de foro (consigna, reglas, rúbrica breve)\n**Consigna**: comparte un gráfico propio (barras/histograma) usando datos de tu contexto y comenta dos aportes de compañeros.\n**Reglas**: respeto, citas de fuente, no publicar datos sensibles.\n**Rúbrica (0-3)**:\n- 0: sin evidencias / fuera de tema\n- 1: gráfico incompleto / sin fuente\n- 2: gráfico correcto / comentario básico\n- 3: gráfico claro / comentario crítico con sugerencias",
     "rubrica_analitica_proyectos.md": "## Rúbrica analítica 4 niveles para proyectos\n**Criterios**: dominio conceptual, aplicación, comunicación, autonomía.\n| Criterio | Insuficiente (1) | Básico (2) | Alto (3) | Superior (4) |\n|---|---|---|---|---|\n| Dominio conceptual | Definiciones imprecisas | Conceptos reconocidos | Conceptos aplicados | Integra y justifica supuestos |\n| Aplicación | Cálculos con errores | Cálculos básicos correctos | Resuelve y valida | Optimiza y verifica supuestos |\n| Comunicación | Gráficos confusos | Tablas y conclusiones simples | Reporte claro con gráficos | Informe estructurado y convincente |\n| Autonomía | Requiere guía constante | Gestiona tareas con apoyo | Planifica y entrega a tiempo | Anticipa riesgos y propone mejoras |"
   }
   </script>
@@ -779,24 +964,66 @@ Módulo 5,Respuesta corta,Indica cómo afecta la variabilidad de la muestra al m
     const quizContainer = document.getElementById('quiz-container');
     const quizOverview = document.getElementById('quiz-overview');
 
-    // Renderizar los cuestionarios
+    // Renderizar los cuestionarios con barra de progreso y navegación por preguntas
     function renderQuizzes() {
       quizContainer.innerHTML = '';
-      let totalQuestions = 0;
-      let totalCorrect = 0;
-      Object.keys(modules).forEach((moduleName, moduleIndex) => {
+      quizOverview.textContent = '';
+      const moduleStates = {};
+      // Para cada módulo, crear su propio cuestionario con progreso
+      Object.keys(modules).forEach((moduleName) => {
+        const questions = modules[moduleName];
         const modDiv = document.createElement('div');
         modDiv.className = 'quiz-module';
         const heading = document.createElement('h3');
         heading.textContent = moduleName;
         modDiv.appendChild(heading);
-        modules[moduleName].forEach((q, idx) => {
+        // contenedor de barra de progreso
+        const progressWrapper = document.createElement('div');
+        progressWrapper.className = 'progress-wrapper';
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-bar';
+        progressWrapper.appendChild(progressBar);
+        modDiv.appendChild(progressWrapper);
+        // contenedor de preguntas
+        const qContainer = document.createElement('div');
+        qContainer.className = 'question-container';
+        modDiv.appendChild(qContainer);
+        quizContainer.appendChild(modDiv);
+        // estado inicial del módulo
+        moduleStates[moduleName] = { index: 0, correct: 0, answered: 0 };
+        // función para mostrar la pregunta actual
+        function showQuestion() {
+          const state = moduleStates[moduleName];
+          const total = questions.length;
+          // actualizar barra de progreso
+          progressBar.style.width = `${(state.index / total) * 100}%`;
+          qContainer.innerHTML = '';
+          // si ya finalizó todas las preguntas
+          if (state.index >= total) {
+            progressBar.style.width = '100%';
+            qContainer.innerHTML = `<p><strong>Cuestionario completado.</strong><br>Respuestas correctas: ${state.correct} de ${state.answered} preguntas cerradas.</p>`;
+            updateOverview();
+            return;
+          }
+          const q = questions[state.index];
           const qDiv = document.createElement('div');
           qDiv.className = 'question';
-          const qId = `m${moduleIndex}-q${idx}`;
           const qTitle = document.createElement('h4');
-          qTitle.textContent = `${idx + 1}. ${q.question}`;
+          qTitle.textContent = `${state.index + 1}. ${q.question}`;
           qDiv.appendChild(qTitle);
+          // contenedor de retroalimentación
+          const fbDiv = document.createElement('div');
+          fbDiv.className = 'feedback';
+          // botón siguiente
+          const nextBtn = document.createElement('button');
+          nextBtn.textContent = 'Siguiente';
+          nextBtn.className = 'cta';
+          nextBtn.style.marginTop = '0.5rem';
+          nextBtn.style.display = 'none';
+          nextBtn.addEventListener('click', () => {
+            state.index++;
+            showQuestion();
+          });
           if (q.type === 'Selección' || q.type === 'V/F') {
             const list = document.createElement('ul');
             list.className = 'options';
@@ -807,21 +1034,26 @@ Módulo 5,Respuesta corta,Indica cómo afecta la variabilidad de la muestra al m
               label.style.cursor = 'pointer';
               const input = document.createElement('input');
               input.type = 'radio';
-              input.name = qId;
+              input.name = `${moduleName}-q${state.index}`;
               input.value = optionLetters[i];
               input.setAttribute('aria-label', opt);
               input.addEventListener('change', (e) => {
                 const selected = e.target.value;
-                const feedback = qDiv.querySelector('.feedback');
+                // evaluar respuesta
                 if (selected === q.correct) {
-                  feedback.textContent = '¡Correcto! ' + q.feedback;
-                  feedback.className = 'feedback correct';
-                  totalCorrect++;
+                  fbDiv.textContent = '¡Correcto! ' + q.feedback;
+                  fbDiv.className = 'feedback correct';
+                  state.correct++;
                 } else {
-                  feedback.textContent = 'Incorrecto. ' + q.feedback;
-                  feedback.className = 'feedback incorrect';
+                  fbDiv.textContent = 'Incorrecto. ' + q.feedback;
+                  fbDiv.className = 'feedback incorrect';
                 }
-                // Actualizar resumen
+                state.answered++;
+                // deshabilitar opciones
+                const allInputs = list.querySelectorAll('input');
+                allInputs.forEach(inp => { inp.disabled = true; });
+                // mostrar botón siguiente
+                nextBtn.style.display = 'inline-block';
                 updateOverview();
               });
               label.appendChild(input);
@@ -832,14 +1064,10 @@ Módulo 5,Respuesta corta,Indica cómo afecta la variabilidad de la muestra al m
               list.appendChild(li);
             });
             qDiv.appendChild(list);
-            const fb = document.createElement('div');
-            fb.className = 'feedback';
-            qDiv.appendChild(fb);
           } else {
-            // Respuesta corta: input y botón para mostrar respuesta
+            // pregunta de respuesta corta
             const textarea = document.createElement('textarea');
             textarea.rows = 2;
-            textarea.cols = 50;
             textarea.placeholder = 'Escribe tu respuesta';
             textarea.style.width = '100%';
             textarea.style.borderRadius = 'var(--radius-md)';
@@ -851,32 +1079,37 @@ Módulo 5,Respuesta corta,Indica cómo afecta la variabilidad de la muestra al m
             showBtn.className = 'cta secondary';
             showBtn.style.marginTop = '0.5rem';
             showBtn.addEventListener('click', () => {
-              const fb = qDiv.querySelector('.feedback');
-              fb.textContent = 'Respuesta sugerida: ' + q.correct;
-              fb.className = 'feedback correct';
+              fbDiv.textContent = 'Respuesta sugerida: ' + q.correct;
+              fbDiv.className = 'feedback correct';
+              // mostrar siguiente
+              nextBtn.style.display = 'inline-block';
+              // deshabilitar botón para evitar múltiples clics
+              showBtn.disabled = true;
+              updateOverview();
             });
             qDiv.appendChild(showBtn);
-            const fb = document.createElement('div');
-            fb.className = 'feedback';
-            qDiv.appendChild(fb);
           }
-          modDiv.appendChild(qDiv);
-          totalQuestions++;
+          qDiv.appendChild(fbDiv);
+          qDiv.appendChild(nextBtn);
+          qContainer.appendChild(qDiv);
+        }
+        // mostrar primera pregunta
+        showQuestion();
+      });
+      // función para actualizar la vista general de resultados
+      function updateOverview() {
+        let answeredCount = 0;
+        let correctCount = 0;
+        Object.values(moduleStates).forEach(state => {
+          answeredCount += state.answered;
+          correctCount += state.correct;
         });
-        quizContainer.appendChild(modDiv);
-      });
-      updateOverview();
-    }
-    function updateOverview() {
-      // Contar el número de respuestas correctas detectadas
-      const answered = quizContainer.querySelectorAll('input[type=radio]:checked');
-      let correctCount = 0;
-      answered.forEach(inp => {
-        const parent = inp.closest('.question');
-        const fb = parent.querySelector('.feedback');
-        if (fb.classList.contains('correct')) correctCount++;
-      });
-      quizOverview.textContent = `Has respondido correctamente ${correctCount} de ${answered.length} preguntas cerradas.`;
+        if (answeredCount > 0) {
+          quizOverview.textContent = `Has respondido correctamente ${correctCount} de ${answeredCount} preguntas cerradas.`;
+        } else {
+          quizOverview.textContent = '';
+        }
+      }
     }
     renderQuizzes();
 
@@ -895,12 +1128,21 @@ Módulo 5,Respuesta corta,Indica cómo afecta la variabilidad de la muestra al m
       // Convertir Markdown a HTML
       contentDiv.innerHTML = marked.parse(content);
       entry.appendChild(contentDiv);
-      // Botón de descarga: enlaza directamente al archivo Markdown ubicado junto al index
+      // Botón de descarga: enlaza al archivo Markdown o PDF ubicado junto al index
       const downloadLink = document.createElement('a');
-      downloadLink.href = filename;
+      // Ajustar enlace de descarga: para ciertos recursos utiliza el PDF provisto en lugar del .md
+      let downloadName = filename;
+      if (filename === 'checklist_modulo1.md') {
+        downloadName = 'Checklist_estudio_semanal.pdf';
+      } else if (filename === 'plan_actividades.md') {
+        downloadName = 'Plan_actividades.pdf';
+      } else if (filename === 'rubrica_analitica_proyectos.md') {
+        downloadName = 'Rubrica_proyectos.pdf';
+      }
+      downloadLink.href = downloadName;
       downloadLink.className = 'cta secondary';
       // Atributo download sugiere al navegador guardar el archivo en disco
-      downloadLink.setAttribute('download', filename);
+      downloadLink.setAttribute('download', downloadName);
       downloadLink.textContent = 'Descargar';
       downloadLink.style.marginTop = '0.5rem';
       entry.appendChild(downloadLink);
@@ -935,6 +1177,238 @@ Módulo 5,Respuesta corta,Indica cómo afecta la variabilidad de la muestra al m
         signupFormEl.reset();
       });
     }
+    // ----- Funcionalidades adicionales: autenticación, calificaciones y mensajería -----
+    (function() {
+      // Botones y secciones para login/registro
+      const loginBtn = document.getElementById('login-button');
+      const registerBtn = document.getElementById('register-button');
+      const loginSection = document.getElementById('login');
+      const registerSection = document.getElementById('registro');
+      const welcomeSpan = document.getElementById('welcome-user');
+      // Función para alternar la visibilidad de secciones de autenticación
+      function toggleSection(sectionEl) {
+        if (!sectionEl) return;
+        if (loginSection) loginSection.style.display = 'none';
+        if (registerSection) registerSection.style.display = 'none';
+        const isHidden = sectionEl.style.display === 'none' || sectionEl.style.display === '';
+        sectionEl.style.display = isHidden ? 'block' : 'none';
+        if (isHidden) sectionEl.scrollIntoView({behavior:'smooth'});
+      }
+      if (loginBtn) {
+        loginBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          toggleSection(loginSection);
+        });
+      }
+      if (registerBtn) {
+        registerBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          toggleSection(registerSection);
+        });
+      }
+      // Manejar registro
+      const registerForm = document.getElementById('register-form');
+      if (registerForm) {
+        registerForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = document.getElementById('reg-nombre').value.trim();
+          const email = document.getElementById('reg-email').value.trim();
+          const pass = document.getElementById('reg-pass').value;
+          let users = JSON.parse(localStorage.getItem('users') || '[]');
+          const exists = users.find(u => u.email === email);
+          const msgEl = document.getElementById('register-success');
+          if (exists) {
+            msgEl.textContent = 'Ya existe una cuenta con ese correo.';
+          } else {
+            users.push({name, email, pass});
+            localStorage.setItem('users', JSON.stringify(users));
+            msgEl.textContent = 'Registro exitoso. Ahora puedes iniciar sesión.';
+            registerForm.reset();
+          }
+          msgEl.style.display = 'block';
+        });
+      }
+      // Manejar inicio de sesión
+      const loginForm = document.getElementById('login-form');
+      if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const email = document.getElementById('login-email').value.trim();
+          const pass = document.getElementById('login-pass').value;
+          const users = JSON.parse(localStorage.getItem('users') || '[]');
+          const user = users.find(u => u.email === email && u.pass === pass);
+          const msgEl = document.getElementById('login-success');
+          if (user) {
+            localStorage.setItem('loggedUser', JSON.stringify(user));
+            const welcome = 'Bienvenido, ' + user.name;
+            if (msgEl) {
+              msgEl.textContent = welcome + '!';
+              msgEl.style.display = 'block';
+            }
+            if (welcomeSpan) {
+              welcomeSpan.textContent = welcome;
+              welcomeSpan.style.display = 'inline';
+            }
+            if (loginBtn) loginBtn.style.display = 'none';
+            if (registerBtn) registerBtn.style.display = 'none';
+            if (loginSection) loginSection.style.display = 'none';
+            // Actualizar tabla de calificaciones
+            if (typeof renderGrades === 'function') {
+              renderGrades();
+            }
+          } else {
+            msgEl.textContent = 'Credenciales incorrectas. Verifica tus datos.';
+            msgEl.style.display = 'block';
+          }
+        });
+      }
+      // Inicializar estado al cargar
+      const savedUser = localStorage.getItem('loggedUser');
+      if (savedUser) {
+        try {
+          const u = JSON.parse(savedUser);
+          if (welcomeSpan) {
+            welcomeSpan.textContent = 'Bienvenido, ' + u.name;
+            welcomeSpan.style.display = 'inline';
+          }
+          if (loginBtn) loginBtn.style.display = 'none';
+          if (registerBtn) registerBtn.style.display = 'none';
+        } catch(err) {}
+      }
+    })();
+
+    // ---- Calificaciones ----
+    const gradeTasks = [
+      {id:'quiz_mod1', name:'Cuestionario Módulo 1'},
+      {id:'quiz_mod2', name:'Cuestionario Módulo 2'},
+      {id:'quiz_mod3', name:'Cuestionario Módulo 3'},
+      {id:'quiz_mod4', name:'Cuestionario Módulo 4'},
+      {id:'quiz_mod5', name:'Cuestionario Módulo 5'},
+      {id:'proyecto_final', name:'Proyecto final'}
+    ];
+    function renderGrades() {
+      const container = document.getElementById('grades-container');
+      if (!container) return;
+      const saved = localStorage.getItem('loggedUser');
+      let userKey = 'default';
+      if (saved) {
+        try { userKey = JSON.parse(saved).email; } catch(err) {}
+      }
+      const gradesAll = JSON.parse(localStorage.getItem('grades') || '{}');
+      const userGrades = gradesAll[userKey] || {};
+      let html = '<table><thead><tr><th>Actividad</th><th>Nota (0-100)</th></tr></thead><tbody>';
+      gradeTasks.forEach(task => {
+        const val = userGrades[task.id] || '';
+        html += `<tr><td>${task.name}</td><td><input type="number" min="0" max="100" data-task="${task.id}" value="${val}" style="width:80px;padding:0.3rem;border:1px solid #e5e7eb;border-radius:var(--radius-md);"></td></tr>`;
+      });
+      html += '</tbody></table>';
+      container.innerHTML = html;
+      const inputs = container.querySelectorAll('input[type="number"]');
+      inputs.forEach(input => {
+        input.addEventListener('change', () => {
+          const taskId = input.getAttribute('data-task');
+          const value = input.value;
+          let grades = JSON.parse(localStorage.getItem('grades') || '{}');
+          let key = 'default';
+          const saved2 = localStorage.getItem('loggedUser');
+          if (saved2) {
+            try { key = JSON.parse(saved2).email; } catch(err) {}
+          }
+          if (!grades[key]) grades[key] = {};
+          grades[key][taskId] = value;
+          localStorage.setItem('grades', JSON.stringify(grades));
+        });
+      });
+    }
+    renderGrades();
+
+    // ---- Mensajería ----
+    (function() {
+      const chatList = document.getElementById('chat-list');
+      const chatForm = document.getElementById('chat-form');
+      const chatInput = document.getElementById('chat-input');
+      const chatKey = 'chat-messages';
+      function renderChat() {
+        if (!chatList) return;
+        const msgs = JSON.parse(localStorage.getItem(chatKey) || '[]');
+        chatList.innerHTML = '';
+        msgs.forEach(msg => {
+          const div = document.createElement('div');
+          div.style.marginBottom = '0.4rem';
+          div.innerHTML = `<strong>${msg.author}:</strong> ${msg.text}`;
+          chatList.appendChild(div);
+        });
+        if (chatList) chatList.scrollTop = chatList.scrollHeight;
+      }
+      if (chatForm) {
+        chatForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const text = chatInput.value.trim();
+          if (!text) return;
+          const savedUser = localStorage.getItem('loggedUser');
+          let author = 'Anónimo';
+          if (savedUser) {
+            try { author = JSON.parse(savedUser).name; } catch(err) {}
+          }
+          const msgs = JSON.parse(localStorage.getItem(chatKey) || '[]');
+          msgs.push({author, text, time: Date.now()});
+          localStorage.setItem(chatKey, JSON.stringify(msgs));
+          chatInput.value = '';
+          renderChat();
+          // Respuesta automática del tutor
+          setTimeout(() => {
+            const updated = JSON.parse(localStorage.getItem(chatKey) || '[]');
+            updated.push({author:'Tutor', text:'Gracias por tu mensaje. Pronto te responderé.', time: Date.now()});
+            localStorage.setItem(chatKey, JSON.stringify(updated));
+            renderChat();
+          }, 2000);
+        });
+      }
+      renderChat();
+    })();
+    // Lógica del foro interactivo: utiliza localStorage para persistir comentarios en el navegador
+    (function() {
+      const foroForm = document.getElementById('foro-form');
+      const foroList = document.getElementById('foro-list');
+      const foroKey = 'foro-comments';
+      // Renderizar comentarios almacenados
+      function renderComments() {
+        if (!foroList) return;
+        const comments = JSON.parse(localStorage.getItem(foroKey) || '[]');
+        foroList.innerHTML = '';
+        comments.forEach(com => {
+          const div = document.createElement('div');
+          div.className = 'foro-comment';
+          const strong = document.createElement('strong');
+          strong.textContent = com.name;
+          const p = document.createElement('p');
+          p.textContent = com.text;
+          div.appendChild(strong);
+          div.appendChild(p);
+          foroList.appendChild(div);
+        });
+      }
+      if (foroForm) {
+        foroForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const nameInput = document.getElementById('foro-nombre');
+          const commentInput = document.getElementById('foro-comentario');
+          const name = nameInput.value.trim();
+          const text = commentInput.value.trim();
+          if (!name || !text) {
+            return;
+          }
+          const comments = JSON.parse(localStorage.getItem(foroKey) || '[]');
+          comments.push({name, text, time: Date.now()});
+          localStorage.setItem(foroKey, JSON.stringify(comments));
+          nameInput.value = '';
+          commentInput.value = '';
+          renderComments();
+        });
+      }
+      // Inicializar lista de comentarios al cargar la página
+      renderComments();
+    })();
   </script>
 </body>
 </html>
